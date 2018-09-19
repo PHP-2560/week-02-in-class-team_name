@@ -49,11 +49,29 @@ daily = rain.df %>%
   select(-1, -2, -3) %>%
   rowSums()
 rain.df2 = cbind(rain.df,daily)
+
+summary(rain.df2$daily)
+#The minimum and mean are negative indicating that there are nonsenical values listed in the dataset.
 ```
+```{r}
+hist(daily)
+#The histogram also shows negative values for rainfall.  
+```
+
 
 8. Create a new data frame rain.df.fixed that takes the original and fixes it for the apparent flaw you have discovered. Having done this, produce a new histogram with the corrected data and explain why this is more reasonable.
 ```{r}
+rain.df3 = rain.df
 
+rain.df3[rain.df3 < 0] = 0
+
+daily2 = rain.df3 %>%
+  select(-1, -2, -3) %>%
+  rowSums()
+rain.df3 = cbind(rain.df3,daily2)
+hist(daily2)
+
+#This histogram is more reasonable because there are no longer any negative values. We considered the previous values of -999 as missing and changed them to 0. The distribution indicates that for the majority of days, there was not a lot of rainfall. For the most part, there was less than 200mm of rain.  
 ```
 
 ## Part 2
